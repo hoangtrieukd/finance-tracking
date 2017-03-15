@@ -45,7 +45,7 @@ class UserStocksController < ApplicationController
 
     respond_to do |format|
       if @user_stock.save
-        format.html { redirect_to my_portfolio_path, notice: 'User stock was successfully created.' }
+        format.html { redirect_to my_portfolio_path, notice: '#{@user_stocks.stock.ticker} was successfully created.' }
         format.json { render :show, status: :created, location: @user_stock }
       else
         format.html { render :new }
@@ -73,7 +73,7 @@ class UserStocksController < ApplicationController
   def destroy
     @user_stock.destroy
     respond_to do |format|
-      format.html { redirect_to user_stocks_url, notice: 'User stock was successfully destroyed.' }
+      format.html { redirect_to my_portfolio_path, notice: 'User stock was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
