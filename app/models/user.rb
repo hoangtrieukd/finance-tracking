@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+	has_many :friendships
+	has_many :friends, through: :friendships
 	has_many :user_stocks
 	has_many :stock, through: :user_stocks	
 	devise :database_authenticatable, :registerable,
@@ -15,5 +17,11 @@ class User < ApplicationRecord
 		stock = Stock.find_by_ticker(ticker_symbol)
 	return false unless stock
 		user_stocks.where(stock_id: stock.id).exists?
+	end
+
+	def full_name
+		return "#{first_name}#{last_name}".strip if (first_name || last_name)
+		"Anonymous"
+		
 	end
 end
